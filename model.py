@@ -12,7 +12,7 @@ class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(25), nullable=False)
 
-    appointments = db.relationshup('Apointment', back_populates='user')
+    # appointments = db.relationship('Appointment', back_populates='user')
 
     def __repr__(self):
         """Show info about a user."""
@@ -27,8 +27,7 @@ class Appointment(db.Model):
 
     appt_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     appt_datetime = db.Column(db.DateTime, nullable=False)
-
-    user = db.relationship("User", back_populates="appointments")
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     
     def __repr__(self):
         """Show info about an appointment."""
