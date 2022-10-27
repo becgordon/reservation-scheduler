@@ -94,9 +94,6 @@ if __name__ == "__main__":
 
 # Things To Do
 """
--Edit so a user can only have one appt per calendar day
--Add error message if they try to schedule a second appt for the same day
-
 If time:
 -Edit appts to be more readable
 

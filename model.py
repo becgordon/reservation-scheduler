@@ -43,7 +43,7 @@ def connect_to_db(app, db_uri="postgresql:///melons"):
     app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
     app.config["SQLALCHEMY_ECHO"] = True
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    # db.app = app
+    db.app = app
     with app.app_context():
         db.init_app(app)
     
