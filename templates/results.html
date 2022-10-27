@@ -4,6 +4,19 @@
 
 {% block body %}
 <h1>Available Reservations</h1>
+
+{% if error == True %}
+<h3>
+    You already have a reservation scheduled for this date. As a reminder, we only allow one reservation per person per day. Please try another date.
+</h3>
+{% else %}
+
+{% if not slots %}
+<h3>
+    It looks like there aren't any reservations available in that time frame. Please try again.
+</h3>
+{% endif %}
+
 <h3>
     Click on an available time to reserve it.
 </h3>
@@ -17,5 +30,7 @@
     </select>
     <input type="submit">
 </form>
+
+{% endif %}
 
 {% endblock %}

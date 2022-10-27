@@ -29,6 +29,16 @@ def create_appointment(appt_datetime, user_id):
 
     return appointment
 
+def appt_date_check(username, appt_datetime):
+    """Check to see if user already has an appointment on a given date."""
+
+    appts = get_user_appointments(username)
+
+    for appt in appts:
+        if appt.appt_datetime.date() == appt_datetime:
+            return True
+
+
 def create_time_slots(cal_date, start_time, end_time):
     """Given a time range, create available time slots."""
 

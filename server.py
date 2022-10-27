@@ -49,12 +49,24 @@ def appointment_results():
     """
 
     date = request.args.get("res-date")
+    print('\n'*5)
+    print(date)
+    print('\n'*5)
+
+    print(crud.appt_date_check(session["user"], date))
+    print('\n'*5)
+
+    if crud.appt_date_check(session["user"], date):
+        error = True
+    else:
+        error = False
+
     start_time = request.args.get("start-time")
     end_time = request.args.get("end-time")
 
     slots = crud.create_time_slots(date, start_time, end_time)
 
-    return render_template("results.html", slots=slots)
+    return render_template("results.html", slots=slots, error=error)
 
 
 @app.route("/scheduledappointments")
@@ -84,7 +96,6 @@ if __name__ == "__main__":
 """
 -Edit so a user can only have one appt per calendar day
 -Add error message if they try to schedule a second appt for the same day
--Add error message if no available time slots for desired time frame
 
 If time:
 -Edit appts to be more readable
