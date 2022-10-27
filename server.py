@@ -1,6 +1,7 @@
 """Server for for Melon Tasting Reservation Scheduler."""
 
 from flask import Flask, render_template, flash, session, redirect, request
+import datetime
 from model import connect_to_db, db
 import crud
 
@@ -19,7 +20,6 @@ def process_login():
     """Log user into site."""
 
     username = request.form.get("username")
-
     user = crud.get_user_by_username(username)
 
     if not user:
@@ -27,7 +27,7 @@ def process_login():
         return redirect("/")
     
     else:
-        user = session["username"]
+        session["user"] = user.username
         flash("Log in successful.")
         return redirect("/appointmentsearch")
 
@@ -35,7 +35,14 @@ def process_login():
 @app.route("/appointmentsearch")
 def appointment_search():
     """Page to search for appointments."""
-    return render_template("search.html")
+
+    x = datetime.datetime.now()
+    print(x)
+    current = x.strftime("%x")
+    print('\n')
+    print(current)
+    print('\n')
+    return render_template("search.html", current=current)
 
 
 @app.route("/appointmentresults")
@@ -44,7 +51,7 @@ def appointment_results():
     Page to view apointment search results. Allows user to book any of the 
     appointments and shows error if none are found.
     """
-    pass
+    return render_template("results.html")
 
 
 @app.route("/scheduledappointments")

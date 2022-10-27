@@ -1,10 +1,10 @@
 """CRUD operations for Melon Tasting Reservation Scheduler."""
 
-from model import db, User, Appointment, connect_to_db
+from model import User, Appointment, connect_to_db, db
 
 def create_user(username):
     """Create and return a new user."""
-
+   
     user = User(username=username)
 
     return user
@@ -13,7 +13,9 @@ def create_user(username):
 def get_user_by_username(username):
     """Get a user by their username."""
 
-    return User.query.filter(User.username == username).first()
+    user = User.query.filter(User.username == username).first()
+
+    return user
 
 
 if __name__ == "__main__":

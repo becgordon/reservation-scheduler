@@ -3,5 +3,60 @@
 {% block title %}Appointment Search{% endblock %}
 
 {% block body %}
+<h1>Search for Appointments</h1>
+ <h3>
+    You're logged in as {{ session['user'] }}
+ </h3>
+
+  <form action="/appointmentresults">
+    <div>
+      <label for="res-date">
+        Enter the date of the reservation you'd like
+      </label>
+      <input
+        id="reservation-date"
+        type="date"
+        min="{{ current }}"
+        name="res-date"
+        required />
+      <span class="validity"></span>
+    </div>
+    <br>
+    Enter an optimal time range and we will only show appointments in that range
+    <br>
+    <div>
+        <br>
+        <label for="start-time">Start Time:</label>
+        <input 
+        id="start-time" 
+        type="time" 
+        name="start-time" 
+        required />
+        <span class="validity"></span>
+    </div>
+    <br>
+    <div>
+        <label for="end-time">End Time:</label>
+        <input 
+        id="end-time" 
+        type="time" 
+        name="end-time" 
+        required />
+        <span class="validity"></span>
+    </div>
+    <br>
+    <div>
+      <input type="submit" value="Book!" />
+    </div>
+  </form>
+
+  <form>
+
+  </form>
+
+
+<script>
+    document.getElementById("reservation-date").stepUp(30);
+</script>
 
 {% endblock %}
