@@ -3,5 +3,13 @@
 {% block title %}Scheduled Appointments{% endblock %}
 
 {% block body %}
+<h1>
+    Scheduled Appointments
+</h1>
 
+{% for appt in appointments %}
+<div>
+    {{ appt.appt_datetime }}
+</div>
+{% endfor %}
 {% endblock %}

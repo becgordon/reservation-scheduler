@@ -4,5 +4,18 @@
 
 {% block body %}
 <h1>Available Reservations</h1>
+<h3>
+    Click on an available time to reserve it.
+</h3>
+
+<form action="/scheduledappointments">
+    <label for="slot">Pick a time:</label>
+    <select name="slot" id="slot-select">
+    {% for slot in slots %}
+    <option value="{{ slot }}">{{ slot }}</option>
+    {% endfor %}
+    </select>
+    <input type="submit">
+</form>
 
 {% endblock %}

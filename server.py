@@ -36,13 +36,9 @@ def process_login():
 def appointment_search():
     """Page to search for appointments."""
 
-    x = datetime.datetime.now()
-    print(x)
-    current = x.strftime("%x")
-    print('\n')
-    print(current)
-    print('\n')
-    return render_template("search.html", current=current)
+    current = crud.format_date()
+
+    return render_template("search.html", current=current) 
 
 
 @app.route("/appointmentresults")
@@ -51,7 +47,14 @@ def appointment_results():
     Page to view apointment search results. Allows user to book any of the 
     appointments and shows error if none are found.
     """
-    return render_template("results.html")
+
+    date = request.args.get("res-date")
+    start_time = request.args.get("start-time")
+    end_time = request.args.get("end-time")
+
+    slots = crud.create_time_slots(date, start_time, end_time)
+
+    return render_template("results.html", slots=slots)
 
 
 @app.route("/scheduledappointments")
@@ -60,9 +63,30 @@ def scheduled_appointments():
     Page to view all the scheduled appointments for the current user. 
     Optionally add cancelling or editing of appointments.
     """
-    pass
+    user = crud.get_user_by_username(session["user"])
+    appt_time = request.args.get("slot")
+    appt = crud.create_appointment(appt_time,user.user_id)
+    db.session.add(appt)
+    db.session.commit()
+
+    appointments = crud.get_user_appointments(session["user"])
+    
+    return render_template("scheduled.html", appointments=appointments)
 
 
 if __name__ == "__main__":
     connect_to_db(app)
     app.run(debug=True, host="0.0.0.0")
+
+
+
+# Things To Do
+"""
+-Edit so a user can only have one appt per calendar day
+-Add error message if they try to schedule a second appt for the same day
+-Add error message if no available time slots for desired time frame
+
+If time:
+-Edit appts to be more readable
+
+"""
